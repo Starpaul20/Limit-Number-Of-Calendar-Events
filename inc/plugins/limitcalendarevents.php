@@ -1,0 +1,95 @@
+<?php
+/**
+ * Limit Number of Calendar Events
+ * Copyright 2011 Starpaul20
+ */
+
+// Disallow direct access to this file for security reasons
+if(!defined("IN_MYBB"))
+{
+	die("Direct initialization of this file is not allowed.<br /><br />Please make sure IN_MYBB is defined.");
+}
+
+// Tell MyBB when to run the hooks
+$plugins->add_hook("calendar_do_addevent_start", "limitcalendarevents_run");
+$plugins->add_hook("calendar_addevent_start", "limitcalendarevents_run");
+
+$plugins->add_hook("admin_formcontainer_output_row", "limitcalendarevents_usergroup_permission");
+$plugins->add_hook("admin_user_groups_edit_commit", "limitcalendarevents_usergroup_permission_commit");
+
+// The information that shows up on the plugin manager
+function limitcalendarevents_info()
+{
+	return array(
+		"name"				=> "Limit Number of Calendar Events",
+		"description"		=> "Allows you to limit the number of Calendar Events that a user in a usergroup can post in a day.",
+		"website"			=> "http://galaxiesrealm.com/index.php",
+		"author"			=> "Starpaul20",
+		"authorsite"		=> "http://galaxiesrealm.com/index.php",
+		"version"			=> "1.0.1",
+		"guid"				=> "9976f23a645356d155c534e56076c7c6",
+		"compatibility"		=> "16*"
+	);
+}
+
+// This function runs when the plugin is activated.
+function limitcalendarevents_activate()
+{
+	global $db, $cache;
+	$db->add_column("usergroups", "maxeventsday", "int(3) NOT NULL default '10'");
+
+	$cache->update_usergroups();
+}
+
+// This function runs when the plugin is deactivated.
+function limitcalendarevents_deactivate()
+{
+	global $db, $cache;
+	if($db->field_exists("maxeventsday", "usergroups"))
+	{
+		$db->drop_column("usergroups", "maxeventsday");
+	}
+
+	$cache->update_usergroups();
+}
+
+// Limit Calendar Events per day
+function limitcalendarevents_run()
+{
+	global $mybb, $db, $lang;
+	$lang->load("limitcalendarevents");
+
+	// Check group limits
+	if($mybb->usergroup['maxeventsday'] > 0)
+	{
+		$query = $db->simple_select("events", "COUNT(*) AS post_count", "uid='".intval($mybb->user['uid'])."' AND dateline >= '".(TIME_NOW - (60*60*24))."'");
+		$post_count = $db->fetch_field($query, "post_count");
+		if($post_count >= $mybb->usergroup['maxeventsday'])
+		{
+			$lang->error_max_events_day = $lang->sprintf($lang->error_max_events_day, $mybb->usergroup['maxeventsday']);
+			error($lang->error_max_events_day);
+		}
+	}
+}
+
+// Admin CP permission control
+function limitcalendarevents_usergroup_permission($above)
+{
+	global $mybb, $lang, $form;
+	$lang->load("limitcalendarevents");
+
+	if($above['title'] == $lang->calendar && $lang->calendar)
+	{
+		$above['content'] .= "<div class=\"group_settings_bit\">{$lang->maxeventsday}:<br /><small>{$lang->maxeventsday_desc}</small><br /></div>".$form->generate_text_box('maxeventsday', $mybb->input['maxeventsday'], array('id' => 'maxeventsday', 'class' => 'field50'));
+	}
+
+	return $above;
+}
+
+function limitcalendarevents_usergroup_permission_commit()
+{
+	global $mybb, $updated_group;
+	$updated_group['maxeventsday'] = intval($mybb->input['maxeventsday']);
+}
+
+?>
