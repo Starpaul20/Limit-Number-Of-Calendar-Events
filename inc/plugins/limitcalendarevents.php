@@ -26,7 +26,7 @@ function limitcalendarevents_info()
 		"website"			=> "http://galaxiesrealm.com/index.php",
 		"author"			=> "Starpaul20",
 		"authorsite"		=> "http://galaxiesrealm.com/index.php",
-		"version"			=> "1.0.1",
+		"version"			=> "1.0.2",
 		"guid"				=> "9976f23a645356d155c534e56076c7c6",
 		"compatibility"		=> "16*"
 	);
@@ -76,7 +76,7 @@ function limitcalendarevents_run()
 function limitcalendarevents_usergroup_permission($above)
 {
 	global $mybb, $lang, $form;
-	$lang->load("limitcalendarevents");
+	$lang->load("limitcalendarevents", true);
 
 	if($above['title'] == $lang->calendar && $lang->calendar)
 	{
