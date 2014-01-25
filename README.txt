@@ -1,0 +1,25 @@
+## INFORMATION ##
+
+Limit Number of Calendar Events (1.0.2) for MyBB 1.6
+Created by: Starpaul20
+Copyright: ©2011
+License: GPL
+
+Allows Administrators to limit the number of calendar events that users in a specific usergroup can post in a day. If a user reaches the limit (set as a usergroup permission) they will receive an error telling them they've reached their daily event limit.
+
+The usergroup permission are located under the 'Calendar' section of the 'Miscellaneous' tab when editing a usergroup.
+
+This plugin offers full language support.
+
+
+## INSTALLATION ##
+
+1. Upload all files above, keeping the file structure intact.
+2. Go to Configuration > Plugins
+3. Click "Activate"
+4. Enjoy!
+
+
+## UPDATING ##
+
+If you're updating from any previous version, you only need to overwrite old files with the new ones, no need to deactivate.

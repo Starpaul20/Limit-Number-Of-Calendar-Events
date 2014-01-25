@@ -1,0 +1,8 @@
+1.0.2
+- Bug: Fixed language error for 1.6.11
+
+1.0.1
+- Updated plugin with 1.6.5 plugin system updates
+
+1.0
+- Initial release
