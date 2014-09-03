@@ -26,9 +26,8 @@ function limitcalendarevents_info()
 		"website"			=> "http://galaxiesrealm.com/index.php",
 		"author"			=> "Starpaul20",
 		"authorsite"		=> "http://galaxiesrealm.com/index.php",
-		"version"			=> "1.0.2",
-		"guid"				=> "9976f23a645356d155c534e56076c7c6",
-		"compatibility"		=> "16*"
+		"version"			=> "1.0",
+		"compatibility"		=> "18*"
 	);
 }
 
