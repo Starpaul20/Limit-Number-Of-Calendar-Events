@@ -64,7 +64,7 @@ function limitcalendarevents_run()
 	// Check group limits
 	if($mybb->usergroup['maxeventsday'] > 0)
 	{
-		$query = $db->simple_select("events", "COUNT(*) AS post_count", "uid='".intval($mybb->user['uid'])."' AND dateline >= '".(TIME_NOW - (60*60*24))."'");
+		$query = $db->simple_select("events", "COUNT(*) AS post_count", "uid='".(int)$mybb->user['uid']."' AND dateline >= '".(TIME_NOW - (60*60*24))."'");
 		$post_count = $db->fetch_field($query, "post_count");
 		if($post_count >= $mybb->usergroup['maxeventsday'])
 		{
@@ -91,7 +91,7 @@ function limitcalendarevents_usergroup_permission($above)
 function limitcalendarevents_usergroup_permission_commit()
 {
 	global $mybb, $updated_group;
-	$updated_group['maxeventsday'] = intval($mybb->input['maxeventsday']);
+	$updated_group['maxeventsday'] = (int)$mybb->input['maxeventsday'];
 }
 
 ?>
