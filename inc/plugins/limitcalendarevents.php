@@ -20,9 +20,12 @@ $plugins->add_hook("admin_user_groups_edit_commit", "limitcalendarevents_usergro
 // The information that shows up on the plugin manager
 function limitcalendarevents_info()
 {
+	global $lang;
+	$lang->load("limitcalendarevents", true);
+
 	return array(
-		"name"				=> "Limit Number of Calendar Events",
-		"description"		=> "Allows you to limit the number of Calendar Events that a user in a usergroup can post in a day.",
+		"name"				=> $lang->limitcalendarevents_info_name,
+		"description"		=> $lang->limitcalendarevents_info_desc,
 		"website"			=> "http://galaxiesrealm.com/index.php",
 		"author"			=> "Starpaul20",
 		"authorsite"		=> "http://galaxiesrealm.com/index.php",
