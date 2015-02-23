@@ -95,7 +95,7 @@ function limitcalendarevents_usergroup_permission($above)
 
 	if($above['title'] == $lang->calendar && $lang->calendar)
 	{
-		$above['content'] .= "<div class=\"group_settings_bit\">{$lang->max_events_per_day}:<br /><small>{$lang->max_events_per_day_desc}</small><br /></div>".$form->generate_text_box('maxeventsday', $mybb->input['maxeventsday'], array('id' => 'maxeventsday', 'class' => 'field50'));
+		$above['content'] .= "<div class=\"group_settings_bit\">{$lang->max_events_per_day}:<br /><small>{$lang->max_events_per_day_desc}</small><br /></div>".$form->generate_numeric_field('maxeventsday', $mybb->input['maxeventsday'], array('id' => 'maxeventsday', 'class' => 'field50', 'min' => 0));
 	}
 
 	return $above;
