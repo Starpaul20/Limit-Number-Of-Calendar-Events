@@ -104,7 +104,7 @@ function limitcalendarevents_usergroup_permission($above)
 function limitcalendarevents_usergroup_permission_commit()
 {
 	global $mybb, $updated_group;
-	$updated_group['maxeventsday'] = (int)$mybb->input['maxeventsday'];
+	$updated_group['maxeventsday'] = $mybb->get_input('maxeventsday', MyBB::INPUT_INT);
 }
 
 ?>
