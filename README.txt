@@ -1,6 +1,6 @@
 ## INFORMATION ##
 
-Limit Number of Calendar Events (1.2) for MyBB 1.8
+Limit Number of Calendar Events (1.3) for MyBB 1.8
 Created by: Starpaul20
 Copyright: ©2011
 License: GPL
